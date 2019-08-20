@@ -92,59 +92,126 @@
             </div>
         </div>
 
-        <!--系统信息-->
+        <!--数据统计-->
         <div class="layui-col-md12">
             <div class="layui-card">
-                <div class="layui-card-header">系统信息</div>
+                <div class="layui-card-header">数据统计图</div>
                 <div class="layui-card-body ">
-                    <table class="layui-table">
-                        <tbody>
-                        <tr>
-                            <th>xxx版本</th>
-                            <td>1.0.180420</td>
-                        </tr>
-                        <tr>
-                            <th>服务器地址</th>
-                            <td>x.xuebingsi.com</td>
-                        </tr>
-                        <tr>
-                            <th>操作系统</th>
-                            <td>WINNT</td>
-                        </tr>
-                        <tr>
-                            <th>运行环境</th>
-                            <td>Apache/2.4.23 (Win32) OpenSSL/1.0.2j mod_fcgid/2.3.9</td>
-                        </tr>
-                        <tr>
-                            <th>PHP版本</th>
-                            <td>5.6.27</td>
-                        </tr>
-                        <tr>
-                            <th>PHP运行方式</th>
-                            <td>cgi-fcgi</td>
-                        </tr>
-                        <tr>
-                            <th>MYSQL版本</th>
-                            <td>5.5.53</td>
-                        </tr>
-                        <tr>
-                            <th>ThinkPHP</th>
-                            <td>5.0.18</td>
-                        </tr>
-                        <tr>
-                            <th>上传附件限制</th>
-                            <td>2M</td>
-                        </tr>
-                        <tr>
-                            <th>执行时间限制</th>
-                            <td>30s</td>
-                        </tr>
-                        <tr>
-                            <th>剩余空间</th>
-                            <td>86015.2M</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <!-- 图表容器 DOM -->
+                    <div id="container" style="width: 600px;height:400px;"></div>
+                    <!-- 引入 highcharts.js -->
+                    <script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+                    <script src="http://cdn.highcharts.com.cn/highcharts/highcharts-3d.js"></script>
+                    <script th:inline="javascript">
+                        // 图表配置
+                        var options = {
+                            "xAxis": [
+                                {
+                                    "type": "category",
+                                    "categories": [
+                                        "会员数",
+                                        "订单数",
+                                        "商品数",
+                                        "商品类别数",
+                                        "积分记录数",
+                                        "管理员数"
+                                    ],
+                                    "index": 0,
+                                    "isX": true
+                                }
+                            ],
+                            "series": [
+                                {
+                                    "name": "数据统计",
+                                    "data": [
+                                        30,
+                                        24,
+                                        50,
+                                        4,
+                                        45,
+                                        3
+                                    ],
+                                    "_colorIndex": 0
+                                }
+                            ],
+                            "yAxis": [
+                                {
+                                    "title": {
+                                        "text": "数量",
+                                        "style": {
+                                            "fontFamily": "\"微软雅黑\", Arial, Helvetica, sans-serif",
+                                            "color": "#666666",
+                                            "fontSize": "16px",
+                                            "fontWeight": "bold",
+                                            "fontStyle": "normal"
+                                        }
+                                    },
+                                    "index": 0,
+                                    "type": "linear",
+                                    "reversed": false,
+                                    "opposite": false,
+                                    "labels": {
+                                        "format": "{value}"
+                                    }
+                                }
+                            ],
+                            "chart": {
+                                "style": {
+                                    "fontFamily": "\"宋体\", Arial, Helvetica, sans-serif",
+                                    "color": "#333",
+                                    "fontSize": "14px",
+                                    "fontWeight": "bold",
+                                    "fontStyle": "normal"
+                                },
+                                "type": "column",
+                                "margin": 75,
+                                "options3d": {
+                                    "enabled": true,
+                                    "alpha": 15,
+                                    "beta": 0,
+                                    "depth": 100,
+                                    "viewDistance": 25
+                                },
+                                "polar": false
+                            },
+                            "title": {
+                                "text": "数据统计",
+                                "style": {
+                                    "fontFamily": "\"微软雅黑\", Arial, Helvetica, sans-serif",
+                                    "color": "#333333",
+                                    "fontSize": "22px",
+                                    "fontWeight": "bold",
+                                    "fontStyle": "normal",
+                                    "fill": "#333333",
+                                    "width": "565px"
+                                }
+                            },
+                            "subtitle": {
+                                "text": "",
+                                "style": "{\"color\": \"#666666\", \"fontSize\": \"12px\" }"
+                            },
+                            "tooltip": {
+                                "headerFormat": "<span style=\"font-size:10px\">{point.key}</span><table>",
+                                "pointFormat": "<tr><td style=\"color:{series.color};padding:0\">{series.name}：</td><td style=\"padding:0\"><b>{point.y} </b></td></tr>",
+                                "footerFormat": "</table>",
+                                "useHTML": true,
+                                "shared": true
+                            },
+                            "plotOptions": {
+                                "column": {
+                                    "depth": 25
+                                },
+                                "series": {
+                                    "animation": false
+                                }
+                            }
+                        }
+                        // 图表初始化函数
+                        var chart = Highcharts.chart('container', options);
+                        // 数据填充
+                        var list = [[${list}]];
+                        chart.series[0].setData(list);
+                    </script>
                 </div>
             </div>
         </div>
