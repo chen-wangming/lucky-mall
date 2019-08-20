@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404错误页面</title>
+    <link rel="icon" th:href="@{/image/mall/logo.ico}">
+    <link rel="stylesheet" th:href="@{/bootstrap-3.3.7-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/404.css}">
+</head>
+
+<body>
+<div class="error">
+    <div class="container-floud">
+        <div class="col-xs-12 ground-color text-center">
+            <div class="container-error-404">
+                <div class="clip">
+                    <div class="shadow">
+                        <span class="digit thirdDigit"></span>
+                    </div>
+                </div>
+                <div class="clip">
+                    <div class="shadow">
+                        <span class="digit secondDigit"></span>
+                    </div>
+                </div>
+                <div class="clip">
+                    <div class="shadow">
+                        <span class="digit firstDigit"></span>
+                    </div>
+                </div>
+                <div class="msg">OH!
+                    <span class="triangle"></span>
+                </div>
+            </div>
+            <h2 class="h1">很抱歉，你访问的页面找不到了</h2>
+            <p>
+                <b id="time">5</b> 秒后自动返回
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function randomNum() {
+        return Math.floor(Math.random() * 9) + 1;
+    }
+
+    var loop1, loop2, loop3,
+        time = 30, i = 0, number;
+    loop3 = setInterval(function () {
+        if (i > 40) {
+            clearInterval(loop3);
+            document.querySelector('.thirdDigit').textContent = 4;
+        } else {
+            document.querySelector('.thirdDigit').textContent = randomNum();
+            i++;
+        }
+    }, time);
+    loop2 = setInterval(function () {
+        if (i > 80) {
+            clearInterval(loop2);
+            document.querySelector('.secondDigit').textContent = 0;
+        } else {
+            document.querySelector('.secondDigit').textContent = randomNum();
+            i++;
+        }
+    }, time);
+    loop1 = setInterval(function () {
+        if (i > 100) {
+            clearInterval(loop1);
+            document.querySelector('.firstDigit').textContent = 4;
+        } else {
+            document.querySelector('.firstDigit').textContent = randomNum();
+            i++;
+        }
+    }, time);
+
+    var timer = setInterval(function () {
+        var time = document.getElementById("time");
+        time.innerText--;
+        if (time.innerText <= 0) {
+            clearInterval(timer);
+            history.back();
+        }
+    }, 1000)
+</script>
+</html>

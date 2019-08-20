@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户未登录错误页面</title>
+    <link rel="icon" th:href="@{/image/mall/logo.ico}">
+    <link rel="stylesheet" th:href="@{css/dandelion.css}" media="screen"/>
+    <title>404错误页面</title>
+</head>
+<body>
+<!-- Main Wrapper. Set this to 'fixed' for fixed layout and 'fluid' for fluid layout' -->
+<div id="da-wrapper" class="fluid">
+    <!-- Content -->
+    <div id="da-content">
+        <!-- Container -->
+        <div class="da-container clearfix">
+            <div id="da-error-wrapper">
+                <div id="da-error-pin"></div>
+                <div id="da-error-code">
+                    error <span>尚未登录</span>
+                </div>
+                <h1 class="da-error-heading">请前往登录后再进行访问</h1>
+                <p>
+                    <b id="time">5</b> 秒后自动前往登录页面
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div id="da-footer">
+        <div class="da-container clearfix">
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var timer = setInterval(function () {
+        var time = document.getElementById("time");
+        time.innerText--;
+        if (time.innerText <= 0) {
+            clearInterval(timer);
+            window.location.href="/login"
+        }
+    }, 1000)
+</script>
+</html>

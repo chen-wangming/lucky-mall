@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统登录</title>
+    <link rel="icon" th:href="@{/image/mall/hou.png}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-login.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+</head>
+<body>
+<div align="center">
+    <canvas id="canvas" width="100%" height="100%"></canvas>
+    <div class="page-container">
+        <h1>Login</h1>
+        <form action="" method="post">
+            <div>
+                <input type="text" name="name" id="name" class="username" placeholder="Username" autocomplete="off"/>
+            </div>
+            <div>
+                <input type="password" name="password" id="password" class="password" placeholder="Password"
+                       oncontextmenu="return false" onpaste="return false"/>
+            </div>
+            <button id="submit" type="button">Sign&nbsp;&nbsp;&nbsp;in</button>
+            <div id="index">
+                <a href="/index">前往商城首页</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+    layui.use(["layer", "element"], function () {
+        var layer = layui.layer;
+
+        $(function () {
+            $("#submit").on("click", checkLogin)
+
+            function checkType() {
+                var name = $("#name").val();
+                var password = $("#password").val();
+                if (name == "" || password == "") {
+                    return false;
+                }
+                $.ajax({
+                    type: 'post',
+                    url: "/admin/loginAdmin",
+                    dataType: 'json',
+                    data: {"name": name, "password": password},
+                    success: function (data) {
+                        console.log(data)
+                        if (data.msg == "success") {
+                            parent.location.href="/admin/index"
+                            // 在iframe页面关闭自身
+                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭
+                            return;
+                        } else {
+                            showMsg("账号或密码错误")
+                        }
+                    },
+                    error: function (jqXHR) {
+                        showMsg("ajax请求出错");
+                    }
+                })
+            }
+
+            function checkLogin() {
+                var name = $.trim($("#name").val());
+                var password = $("#password").val();
+
+                if ($.trim(name) == "") {
+                    //tips层
+                    layer.tips('输入用户名', '#name', {
+                        tips: [2, 'rgba(255,255,255,0.25)'],  // [位置，颜色]  提示位置，1/上 2/右 3/下 4/左 ，默认右
+                    });
+                    $("#name").focus();
+                    return;
+                }
+                if ($.trim(password) == "") {
+                    //tips层
+                    layer.tips('输入密码', '#password', {
+                        tips: [2, 'rgba(0,0,0,0.25)'],  // [位置，颜色]  提示位置，1/上 2/右 3/下 4/左 ，默认右
+                    });
+                    $("#password").focus();
+                    return;
+                }
+                checkType();
+            }
+
+
+            // 提示消息弹框
+            function showMsg(msg) {
+                layer.msg(msg, {
+                    time: 2000,  // 0: 不自动关闭
+                    offset: '10px',
+                });
+            }
+        });
+    });
+</script>
+
+<!--canvas特效-->
+<script>
+    var canvas = document.querySelector("#canvas");
+    var ctx = canvas.getContext("2d");
+    var mouseX = 0;
+    var mouseY = 0;
+    var a = 0.2;
+    var t = 0;
+    var aStep = Math.PI * 0.01;
+    var globalHue = 0;
+
+    init();
+
+    function init() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        window.addEventListener("mousemove", e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+
+        update();
+
+    }
+
+    function update() {
+        requestAnimationFrame(update);
+        var time = performance.now() / 60;
+
+        // do stuff here
+        a = Math.sin(2 - time * 0.0001);
+        t = Math.sin(2 + time * 0.03);
+        //aStep = (Math.sin(time * 0.01) + 1.5) * 0.25
+        aStep = Math.PI * (0.375 + Math.sin(time * 0.001) * 0.125);
+
+        globalHue += 10;
+
+        draw();
+    }
+
+    function draw() {
+
+
+        // clear canvas
+
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // line
+        var cx = window.innerWidth / 2;
+        var cy = window.innerHeight / 2;
+        var x, y, px, py;
+        var radius = 0,
+            pradius = 0;
+        var totalAngle = Math.PI * 200;
+        for (var theta = 0; theta < totalAngle; theta += aStep) {
+
+            pradius = radius;
+            radius = (t + Math.pow(2, Math.cos(theta * a))) * 200;
+            px = x;
+            py = y;
+            x = cx + Math.cos(theta) * radius;
+            y = cy + Math.sin(theta) * radius;
+
+            if (theta > 0) {
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(px, py);
+
+                var dx = x - px;
+                var dy = y - py;
+                var lineSize = Math.sqrt(dx * dx + dy * dy);
+
+                var r = pradius + (radius - pradius) / 2;
+
+                var hue = globalHue + theta / Math.PI * 180;
+                ctx.strokeStyle = "hsl(" + hue + ", 100%, 50%)";
+                //ctx.lineWidth=clamp(map(r, -200, 200, 0.25, 2), 0.25, 10);
+                ctx.lineWidth = .5;
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+        }
+
+
+    }
+
+    function map(value, start1, stop1, start2, stop2) {
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+    }
+
+    function clamp(value, min, max) {
+        return value < min ? min : value > max ? max : value;
+    }
+</script>
+</body>
+</html>
