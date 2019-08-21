@@ -60,7 +60,8 @@ public interface ScoreRecordMapper {
      * @param scoreRecord 积分记录
      * @return int 1/添加成功 0/添加失败
      */
-    @Insert("insert into t_score_record(add_time,point,order_id,user_id) values(#{scoreRecord.addTime},#{scoreRecord.point},#{scoreRecord.orderId},#{scoreRecord.userId})")
+    @Insert("insert into t_score_record(add_time,point,order_id,user_id) "+
+            "values(#{scoreRecord.addTime},#{scoreRecord.point},#{scoreRecord.orderId},#{scoreRecord.userId})")
     @Options(useGeneratedKeys = true, keyProperty = "scoreRecord.id",keyColumn = "id")
     int addScoreRecord(@Param("scoreRecord") ScoreRecord scoreRecord);
 

@@ -23,6 +23,9 @@ public class Score {
      */
     private double percent;
 
+    /**
+     * 方法说明：无参构造方法
+     */
     public Score() {
     }
 

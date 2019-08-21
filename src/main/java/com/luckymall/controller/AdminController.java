@@ -142,7 +142,8 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 商品类别管理视图
      */
     @RequestMapping("/productTypeList")
-    public ModelAndView productTypeList(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView productTypeList(@RequestParam(value = "start", defaultValue = "1") int start,
+                                        @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = productTypeService.productTypeList(start, size);
         return modelAndView;
     }
@@ -179,7 +180,8 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 商品列表视图
      */
     @RequestMapping("/productList")
-    public ModelAndView productList(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView productList(@RequestParam(value = "start", defaultValue = "1") int start,
+                                    @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = productService.productList(start, size);
         return modelAndView;
     }
@@ -193,7 +195,9 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 商品展示视图
      */
     @RequestMapping("/searchProduct")
-    public ModelAndView searchProduct(@RequestParam(value = "searchProductName") String name, @RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView searchProduct(@RequestParam(value = "searchProductName") String name,
+                                      @RequestParam(value = "start", defaultValue = "1") int start,
+                                      @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = productService.searchProduct(name, start, size);
         return modelAndView;
     }
@@ -229,7 +233,8 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 会员列表视图
      */
     @RequestMapping("/userList")
-    public ModelAndView userList(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView userList(@RequestParam(value = "start", defaultValue = "1") int start,
+                                 @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = userService.userList(start, size);
         return modelAndView;
     }
@@ -243,7 +248,9 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 会员展示视图
      */
     @RequestMapping("/searchUser")
-    public ModelAndView searchUser(@RequestParam(value = "searchUserName") String name, @RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView searchUser(@RequestParam(value = "searchUserName") String name,
+                                   @RequestParam(value = "start", defaultValue = "1") int start,
+                                   @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = userService.searchUser(name, start, size);
         return modelAndView;
     }
@@ -302,7 +309,8 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 订单列表视图
      */
     @RequestMapping("/orderList")
-    public ModelAndView orderList(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView orderList(@RequestParam(value = "start", defaultValue = "1") int start,
+                                  @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = orderService.orderList(start, size);
         return modelAndView;
     }
@@ -316,7 +324,9 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 订单展示视图
      */
     @RequestMapping("/searchOrder")
-    public ModelAndView searchOrder(@RequestParam(value = "searchUserId") int id, @RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView searchOrder(@RequestParam(value = "searchUserId") int id,
+                                    @RequestParam(value = "start", defaultValue = "1") int start,
+                                    @RequestParam(value = "size", defaultValue = "5") int size) {
         LOGGER.info("搜索order id：" + id);
         ModelAndView modelAndView = orderService.searchOrder(id, start, size);
         return modelAndView;
@@ -343,7 +353,8 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 管理员列表视图
      */
     @RequestMapping("/adminList")
-    public ModelAndView adminList(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView adminList(@RequestParam(value = "start", defaultValue = "1") int start,
+                                  @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = adminService.adminList(start, size);
         return modelAndView;
     }
@@ -419,7 +430,8 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 积分规则列表视图
      */
     @RequestMapping("/scoreList")
-    public ModelAndView scoreList(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView scoreList(@RequestParam(value = "start", defaultValue = "1") int start,
+                                  @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = scoreService.scoreList(start, size);
         return modelAndView;
     }
@@ -455,7 +467,8 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 积分明细列表视图
      */
     @RequestMapping("/scoreRecordList")
-    public ModelAndView scoreRecordList(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView scoreRecordList(@RequestParam(value = "start", defaultValue = "1") int start,
+                                        @RequestParam(value = "size", defaultValue = "5") int size) {
         ModelAndView modelAndView = scoreRecordService.scoreRecordList(start, size);
         return modelAndView;
     }
@@ -469,7 +482,9 @@ public class AdminController {
      * @return org.springframework.web.servlet.ModelAndView 积分明细展示视图
      */
     @RequestMapping("/searchScoreRecord")
-    public ModelAndView searchScoreRecord(@RequestParam(value = "searchUserId") int id, @RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ModelAndView searchScoreRecord(@RequestParam(value = "searchUserId") int id,
+                                          @RequestParam(value = "start", defaultValue = "1") int start,
+                                          @RequestParam(value = "size", defaultValue = "5") int size) {
         LOGGER.info("会员id：" + id);
         ModelAndView modelAndView = scoreRecordService.searchScoreRecord(id, start, size);
         return modelAndView;

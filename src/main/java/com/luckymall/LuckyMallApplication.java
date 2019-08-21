@@ -15,7 +15,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan(value = {"com.luckymall.mapper"})
 public class LuckyMallApplication {
 
+    /**
+     * 方法说明：springboot启动类main方法
+     * @param args 参数
+     */
     public static void main(String[] args) {
+        // springboot启动
         SpringApplication.run(LuckyMallApplication.class, args);
     }
 

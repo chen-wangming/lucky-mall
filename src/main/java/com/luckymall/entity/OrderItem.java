@@ -23,6 +23,9 @@ public class OrderItem {
      */
     private int orderId;
 
+    /**
+     * 方法说明：无参构造方法
+     */
     public OrderItem() {
     }
 

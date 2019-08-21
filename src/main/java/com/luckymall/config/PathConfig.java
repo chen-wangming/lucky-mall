@@ -15,11 +15,13 @@ public class PathConfig implements WebMvcConfigurer {
     /**
      * 方法说明：虚拟路径映射
      * @param registry 静态资源控制器
-     * @return void 空
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("file:D:/IDEA/Project/lucky-mall/src/main/resources/static/").addResourceLocations("file:D:/IDEA/Project/lucky-mall/src/main/resources/templates/");
-        registry.addResourceHandler("/image/**").addResourceLocations("file:D:/IDEA/Project/lucky-mall/src/main/resources/static/image/");
+        registry.addResourceHandler("/**").
+                addResourceLocations("file:D:/IDEA/Project/lucky-mall/src/main/resources/static/").
+                addResourceLocations("file:D:/IDEA/Project/lucky-mall/src/main/resources/templates/");
+        registry.addResourceHandler("/image/**").
+                addResourceLocations("file:D:/IDEA/Project/lucky-mall/src/main/resources/static/image/");
     }
 }

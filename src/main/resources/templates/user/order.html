@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>订单详情</title>
+    <title>LuckyMall | 订单详情</title>
     <link rel="icon" th:href="@{/image/mall/logo.ico}">
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/css/common.css}">
@@ -65,7 +65,7 @@
                                                     <td th:text="${allOrder.createTime}">1998-01-01 00:00:00</td>
                                                     <td th:if="${allOrder.status}==0">
                                                         <button type="button" class="layui-btn layui-btn-danger"
-                                                                th:onclick="'payOrder('+${allOrder.id}+')'">未支付
+                                                                th:onclick="'payOrder('+${allOrder.id}+','+${allOrder.totalPrice}+')'">未支付
                                                         </button>
                                                     </td>
                                                     <td th:if="${allOrder.status}==1">
@@ -189,28 +189,42 @@
     </div>
 </div>
 <script>
-    function payOrder(orderId) {
-        $.ajax({
-            type: 'post',
-            url: '/order/pay',
-            dataType: 'json',
-            data: {'id': orderId},
-            success: function (data) {
-                if (data.msg == "success") {
-                    var point = data.data;
-                    showMsg('支付成功，获得' + point + '积分', 6, 0);
-                    setTimeout(function () {
-                        window.location.href = "/user/order";
-                    }, 2000);
-                } else {
-                    showMsg("支付失败，请稍后重试", 5, 0)
-                }
+    function payOrder(orderId,totalPrice) {
+        // 支付弹窗
+        layer.prompt({
+            formType: 0,
+            value: '0',
+            title: '需支付'+totalPrice+'元',
+        }, function(value, index, elem){
+            if(value!=totalPrice){
+                showMsg("请输入正确的金额",5,0);
+            }else{
+                layer.close(index);
+                // 支付
+                $.ajax({
+                    type: 'post',
+                    url: '/order/pay',
+                    dataType: 'json',
+                    data: {'id': orderId},
+                    success: function (data) {
+                        if (data.msg == "success") {
+                            var point = data.data;
+                            showMsg('支付成功，获得' + point + '积分', 6, 0);
+                            setTimeout(function () {
+                                window.location.href = "/user/order";
+                            }, 2000);
+                        } else {
+                            showMsg("支付失败，请稍后重试", 5, 0)
+                        }
 
-            },
-            error: function (data) {
-                showMsg("ajax请求出错", 5, 0)
+                    },
+                    error: function (data) {
+                        showMsg("ajax请求出错", 5, 0)
+                    }
+                });
             }
         });
+
     }
 
     function orderDetail(orderId) {

@@ -211,7 +211,7 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         LOGGER.info("总金额：" + totalPrice + " 积分百分比：" + percent);
-        int point = (int) (totalPrice * (percent / 100));
+        int point = (int) (totalPrice * (percent / Constant.SCORE_PERCENT));
         user.setScore(user.getScore() + point);
         int userFlag = userMapper.updateUserById(user);
         // 添加积分记录
@@ -246,7 +246,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderMapper.findOrderByOrderId(orderId);
         LOGGER.info("订单：" + JSON.toJSONString(order));
         List<OrderItem> orderItemList = orderItemMapper.findOrderItemByOrderId(orderId);
-        Map<Product, OrderItem> map = new HashMap<>(50);
+        Map<Product, OrderItem> map = new HashMap<>(Constant.ORDERITEM_MAP_CAPACITY);
         for (OrderItem orderItem : orderItemList) {
             Product product = productMapper.findProductById(orderItem.getProductId());
             map.put(product, orderItem);

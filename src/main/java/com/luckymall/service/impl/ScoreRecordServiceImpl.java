@@ -121,7 +121,7 @@ public class ScoreRecordServiceImpl implements ScoreRecordService {
         HttpSession session =request.getSession();
         // 用户积分减100
         User user = (User)session.getAttribute("user");
-        user.setScore(user.getScore()-100);
+        user.setScore(user.getScore()-Constant.SCORE_PER_TIME);
         userMapper.updateUserById(user);
         session.setAttribute("user",user);
         // 总金额
@@ -148,7 +148,7 @@ public class ScoreRecordServiceImpl implements ScoreRecordService {
         // 添加积分记录
         ScoreRecord scoreRecord = new ScoreRecord();
         scoreRecord.setAddTime(createTime);
-        scoreRecord.setPoint(-100);
+        scoreRecord.setPoint(-Constant.SCORE_PER_TIME);
         scoreRecord.setOrderId(order.getId());
         scoreRecord.setUserId(user.getId());
         scoreRecordMapper.addScoreRecord(scoreRecord);

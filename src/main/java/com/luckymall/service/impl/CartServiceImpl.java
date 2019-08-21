@@ -106,7 +106,7 @@ public class CartServiceImpl implements CartService {
         HttpSession session=request.getSession();
         User user = (User)session.getAttribute("user");
         // Map<商品，该商品的购物车>
-        Map<Product,Cart> productCartMap = new HashMap<Product,Cart>(50);
+        Map<Product,Cart> productCartMap = new HashMap<Product,Cart>(Constant.CART_MAP_CAPACITY);
         // List<用户的购物车>
         List<Cart> cartList = cartMapper.findCartByUserId(user.getId());
         for(Cart cart:cartList){

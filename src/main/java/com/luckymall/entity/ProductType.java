@@ -19,9 +19,18 @@ public class ProductType {
      */
     private String updateTime;
 
+    /**
+     * 方法说明：无参构造方法
+     */
     public ProductType() {
     }
 
+    /**
+     * 方法说明：构造方法
+     * @param id 类别id
+     * @param name 类别名
+     * @param updateTime 更新时间
+     */
     public ProductType(int id, String name, String updateTime) {
         this.id = id;
         this.name = name;

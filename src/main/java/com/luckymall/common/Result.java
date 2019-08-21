@@ -4,6 +4,7 @@ package com.luckymall.common;
  * @Description: 返回数据封装类
  * @Author: wangming.chen
  * @Date: 2019/8/4 9:30
+ * @param <T> 数据域类
  */
 public class Result<T> {
     /**
@@ -15,9 +16,18 @@ public class Result<T> {
      */
     private T data;
 
+    /**
+     * 方法说明：无参构造方法
+     *
+     */
     public Result() {
     }
 
+    /**
+     * 方法说明：构造方法
+     * @param msg   消息
+     * @param data  数据域
+     */
     public Result(String msg, T data) {
         this.msg = msg;
         this.data = data;

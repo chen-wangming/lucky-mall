@@ -31,6 +31,9 @@ public class Order {
      */
     private int userId;
 
+    /**
+     * 方法说明：无参构造方法
+     */
     public Order() {
     }
 

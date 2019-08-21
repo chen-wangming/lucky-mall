@@ -107,14 +107,15 @@ public class AdminServiceImpl implements AdminService {
         int orderNum = orderMapper.countOrder();
         int scoreRecordNum = scoreRecordMapper.countScoreRecord();
         List<Integer> list = new ArrayList<>(6);
-        LOGGER.info("user: " + userNum + ",order: " + orderNum + ",product: " + productNum + ",productType: " + productTypeNum + ",scoreRecord: " + scoreRecordNum + ",admin: " + adminNum);
+        LOGGER.info("user:{},order:{},product:{},productType:{},scoreRecord:{},admin:{}",
+                userNum, orderNum, productNum, productTypeNum, scoreRecordNum, adminNum);
         list.add(userNum);
         list.add(orderNum);
         list.add(productNum);
         list.add(productTypeNum);
         list.add(scoreRecordNum);
         list.add(adminNum);
-        modelAndView.addObject("list",list);
+        modelAndView.addObject("list", list);
         return modelAndView;
     }
 

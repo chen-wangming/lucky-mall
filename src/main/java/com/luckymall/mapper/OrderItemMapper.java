@@ -45,7 +45,8 @@ public interface OrderItemMapper {
      * @param orderItem 订单项
      * @return int 1/更新成功 0/更新失败
      */
-    @Update("update t_order_item set number=#{orderItem.number},product_id=#{orderItem.productId},order_id=#{orderItem.orderId} where id=#{orderItem.id}")
+    @Update("update t_order_item set number=#{orderItem.number},product_id=#{orderItem.productId},"+
+            "order_id=#{orderItem.orderId} where id=#{orderItem.id}")
     int updateOrderItem(OrderItem orderItem);
 
     /**

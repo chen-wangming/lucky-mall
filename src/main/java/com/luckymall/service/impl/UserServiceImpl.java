@@ -136,8 +136,7 @@ public class UserServiceImpl implements UserService {
         session.setAttribute("user", user);
         return result;
     }
-
-
+    
     /**
      * 方法说明：用户信息修改
      *

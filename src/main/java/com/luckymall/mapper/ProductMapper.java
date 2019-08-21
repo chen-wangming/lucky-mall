@@ -73,7 +73,8 @@ public interface ProductMapper {
      * @param product 商品
      * @return int 1/添加成功 0/添加失败
      */
-    @Insert("insert into t_product(name,image,price,number,status,type_id) values(#{product.name},#{product.image},#{product.price},#{product.number},#{product.status},#{product.typeId})")
+    @Insert("insert into t_product(name,image,price,number,status,type_id) values(#{product.name},"+
+            "#{product.image},#{product.price},#{product.number},#{product.status},#{product.typeId})")
     @Options(useGeneratedKeys = true, keyProperty = "product.id", keyColumn = "id")
     int insertByProduct(@Param("product") Product product);
 

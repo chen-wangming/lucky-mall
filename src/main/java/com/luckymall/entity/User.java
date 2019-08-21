@@ -44,20 +44,42 @@ public class User {
      */
     private String nickname;
 
+    /**
+     * 方法说明：无参构造方法
+     */
     public User() {
     }
 
+    /**
+     * 方法说明：构造方法
+     * @param username 用户名
+     * @param password 密码
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * 方法说明：构造方法
+     * @param id    用户id
+     * @param username 用户名
+     * @param password 用户密码
+     */
     public User(int id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * 方法说明：构造方法
+     * @param username 用户名
+     * @param password 密码
+     * @param phone 电话
+     * @param email 邮箱
+
+     */
     public User(String username, String password, String phone, String email) {
         this.username = username;
         this.password = password;

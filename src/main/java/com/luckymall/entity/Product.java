@@ -35,6 +35,9 @@ public class Product {
      */
     private int typeId;
 
+    /**
+     * 方法说明：无参构造方法
+     */
     public Product() {
     }
 

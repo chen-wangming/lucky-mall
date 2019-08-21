@@ -22,6 +22,9 @@ public class Admin {
      */
     private String password;
 
+    /**
+     * 方法说明：无参构造方法
+     */
     public Admin() {
     }
 
