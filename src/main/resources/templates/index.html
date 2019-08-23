@@ -14,6 +14,7 @@
     <link rel="stylesheet" th:href="@{/css/normalize.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/banner.js}"></script>
 </head>
 <body>
 <!--包含 头部模块-->
@@ -21,6 +22,40 @@
 
 <!--商品展示模块-->
 <div class="layui-container" id="content">
+    <!--轮播图-->
+    <div class="banner" id="banner" style="margin: 20px auto;">
+        <div class="banner-view"></div>
+        <div class="banner-btn" hidden></div>
+        <div class="banner-number"></div>
+        <div class="banner-progres"></div>
+    </div>
+    <script type="text/javascript">
+        $("#banner").on("mouseenter",function () {
+            $(".banner-btn").removeAttr("hidden");
+        });
+        $("#banner").on("mouseleave",function () {
+            $(".banner-btn").attr("hidden","hidden");
+        });
+        var banner = new FragmentBanner({
+            container : "#banner",//选择容器 必选
+            imgs : ['image/mall/pic_1.jpg','image/mall/pic_6.jpg','image/mall/pic_3.jpg','image/mall/pic_7.jpg','image/mall/pic_4.jpg','image/mall/pic_5.jpg'],//图片集合 必选
+            size : {
+                width : 1100,
+                height : 400
+            },//容器的大小 可选
+            //行数与列数 可选
+            grid : {
+                line : 12,
+                list : 14
+            },
+            index: 0,//图片集合的索引位置 可选
+            type : 2,//切换类型 1 ， 2 可选
+            boxTime : 3000,//小方块来回运动的时长 可选
+            fnTime : 6000//banner切换的时长 可选
+        });
+    </script>
+
+    <!--商品展示-->
     <div th:each="map:${map}">
         <div class="layui-row">
             <div class="layui-col-md12">
@@ -29,7 +64,8 @@
                           style="padding-left: 11px;border-left: 11px solid #658bf6;color:#658bf6 ">
                         类别</span>
                     <span class="more">
-                         <a th:href="@{/product/findProductByType(id=${map.key.id},name=${map.key.name})}" style="color: red">more</a>
+                         <a th:href="@{/product/findProductByType(id=${map.key.id},name=${map.key.name})}"
+                            style="color: red">more</a>
                     </span>
                 </h1>
             </div>
@@ -46,7 +82,7 @@
                         商品名
                     </div>
                     <div style='text-align: center;'>
-                       <span class='price1' th:text="'￥'+${product.price}"></span>
+                        <span class='price1' th:text="'￥'+${product.price}"></span>
                     </div>
                 </div>
             </div>
